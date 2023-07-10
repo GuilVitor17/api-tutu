@@ -92,7 +92,7 @@ router.post('/forgot_password', async (req, res) =>{
             }
         });
 
-        const msg = {
+        const msg = await {
             to: email, // Change to your recipient
             from: 'contatofelplataforma@gmail.com', // Change to your verified sender
             subject: 'TUTU',
@@ -104,15 +104,15 @@ router.post('/forgot_password', async (req, res) =>{
             <h4>Use esse código para mudar a sua senha na plataforma da (TUTU)</h4><br />
             <h5>Depois de 2h o código sera inspirado e você sera forçado a criar outro.</h5><br />`,
           }
-          sgMail
+         await sgMail
             .send(msg)
             .then( async () => {
               console.log('Email sent')
               console.log(msg)
 
             })
-           await res.status(200).send({msg: 'codigo enviado com sucesso'})
-    //   console.log(token, now )
+           await res.status(200).send({msg: 'codigo enviado com sucesso', msg})
+           //   console.log(token, now )
     } catch (err) {
         console.log(err)
 
