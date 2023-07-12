@@ -72,11 +72,20 @@ router.post('/post', multer(multerConfig).single('file'), async (req, res) =>{
 
 
 router.delete('/post/:id', async (req, res) => {
-    const post = await Upload.findById(req.params.id);
 
-    await post.remove();
+    try {
 
-    return res.send({msg:'Imagem Deletada'})
+        const post = await Upload.findByIdAndDelete(req.params.id);
+    
+        return res.status(200).send({msg:'Imagem Deletada'})
+        
+    } catch (error) {
+
+        console.log(error)
+        return res.status(400).send({error:error});
+        
+    }
+
 });
 
 
