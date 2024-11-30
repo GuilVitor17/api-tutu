@@ -83,23 +83,22 @@ router.post('/', async (req, res) => {
 })
 
 
-router.delete('/:id', async (req, res) =>{
-
+router.delete('/:id', async (req, res) => {
     try {
+        // Encontra e remove o documento diretamente
+        const Remove = await Sonhos.findByIdAndDelete(req.params.id);
 
-        const Remove = await Sonhos.findById(req.params.id)
+        if (!Remove) {
+            return res.status(404).send({ msg: 'Sonho não encontrado' });
+        }
 
-        Remove.remove()
-
-        return res.status(200).send({msg:'sonho apagado'})
-        
+        return res.status(200).send({ msg: 'Sonho apagado' });
     } catch (error) {
-
-        console.log(error)
-        return res.status(400).send({error:error})
-        
+        console.error(error);
+        return res.status(400).send({ error: 'Erro ao apagar o sonho' });
     }
-})
+});
+
 
 
 module.exports = app => app.use('/sonho', router);

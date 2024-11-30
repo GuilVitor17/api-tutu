@@ -72,25 +72,23 @@ router.post('/', async (req, res) => {
 })
 
 
-router.delete('/:id', async (req, res) =>{
-   
+router.delete('/:id', async (req, res) => {
     try {
-
         const deletetarefa = await Tarefas.findById(req.params.id);
 
-        await deletetarefa.remove();
+        if (!deletetarefa) {
+            return res.status(404).send({ msg: 'Tarefa não encontrada' });
+        }
 
-        return res.status(200).send({msg:'Tarefa removida'});
-        
+        await Tarefas.deleteOne({ _id: req.params.id }); // Exclui com base no ID
+
+        return res.status(200).send({ msg: 'Tarefa removida' });
     } catch (error) {
-        console.log(error)
-        return res.status(400).send({error:error});
-
-        
+        console.error(error);
+        return res.status(400).send({ error: 'Erro ao remover a tarefa' });
     }
+});
 
-
-})
 
 
 module.exports = app => app.use('/tarefa', router);

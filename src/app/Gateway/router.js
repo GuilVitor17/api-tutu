@@ -29,8 +29,8 @@ paypal.configure({
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "https://tutu-app-nine.vercel.app/perfil/curso/aulas/check/success",
-            "cancel_url": "https://tutu-app-nine.vercel.app/perfil/curso/aulas/check/cancel"
+            "return_url": "http://localhost:3000/perfil/curso/aulas/check/success",
+            "cancel_url": "http://localhost:3000/perfil/curso/aulas/check/cancel"
         },
 
         "transactions": [{
